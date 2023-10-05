@@ -21,11 +21,11 @@ module.exports = class Product {
     });
   }
 
-  static fetchAll() {
+  static fetchAll(cb) {
     const p = path.join(rootDir, 'data', 'products.json');
     fs.readFile(p, (err, fileContent) => {
-      if (err) return [];
-      return JSON.parse(fileContent);
+      if (err) cb([]);
+      cb(JSON.parse(fileContent));
     });
   }
 };
