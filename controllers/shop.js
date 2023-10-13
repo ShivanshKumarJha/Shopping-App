@@ -12,7 +12,10 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  console.log(prodId);
+  // will find by the id and get the product in the variable name product where we are executing the fnc.
+  Product.findById(prodId, product => {
+    console.log(product);
+  });
   res.redirect('/');
 };
 

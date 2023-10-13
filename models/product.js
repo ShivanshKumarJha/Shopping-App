@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const rootDir = require('../util/path');
+const { get } = require('http');
 const p = path.join(rootDir, 'data', 'products.json');
 
 const getProductsFromFile = cb => {
@@ -19,6 +20,7 @@ module.exports = class Product {
   }
 
   save() {
+    this.id = Math.random().toString();
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
@@ -29,5 +31,13 @@ module.exports = class Product {
 
   static fetchAll(cb) {
     getProductsFromFile(cb);
+  }
+
+  static findById(id, cb) {
+    //products is an array of object where each object has an id
+    getProductsFromFile(products => {
+      const product = products.find(p => p.id == id);
+      cb(product);
+    });
   }
 };

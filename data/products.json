@@ -12,5 +12,12 @@
     "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVjhPIX--uFmIc7Nqb8m-wHSX04JKHsvgy5Q&usqp=CAU",
     "description": "fdhdh",
     "price": "4"
+  },
+  {
+    "title": "Jeans",
+    "imageUrl": "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/5b7e1584618383014da955865cd7e0a8.jpg?imageView2/2/w/400/q/80/format/webp",
+    "description": "Very beautiful product",
+    "price": "109.99",
+    "id": "0.9244597805629222"
   }
 ]
