@@ -1,1 +1,7 @@
-{"products":[{"id":"skduaiofnd","qty":1},{"id":"mndeiofne","qty":4}],"totalPrice":83.96}
+{
+  "products": [
+    { "id": "skduaiofnd", "qty": 1 },
+    { "id": "mndeiofne", "qty": 4 }
+  ],
+  "totalPrice": 83.96
+}
