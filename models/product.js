@@ -44,12 +44,12 @@ module.exports = class Product {
 
   static deleteById(id) {
     getProductsFromFile(products => {
-      // filter() return the new array of elements satisfying the given condition
       const product = products.find(prod => prod.id === id);
+      // filter() return the new array of elements satisfying the given condition
       const updatedProducts = products.filter(prod => prod.id !== id);
       fs.writeFile(p, JSON.stringify(updatedProducts), err => {
         if (!err) {
-          Cart.deleteProduct(id, product.price);
+          // Cart.deleteProduct(id, product.price);
         }
       });
     });
