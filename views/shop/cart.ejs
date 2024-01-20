@@ -1,5 +1,3 @@
-<!-- shop/cart.ejs -->
-
 <%- include('../includes/head.ejs') %>
     <link rel="stylesheet" href="/css/cart.css">
     </head>
@@ -9,26 +7,34 @@
             <main>
                 <% if (products.length> 0) { %>
                     <ul class="cart__item-list">
-                        <% products.forEach(p=> { %>
-                            <li class="cart__item">
-                                <div class="cart__item-details">
+                        <% let totalPrice=0; %>
+                            <% products.forEach(p=> { %>
+                                <li class="cart__item">
                                     <img src="<%= p.productId.imageUrl %>" alt="<%= p.productId.title %>"
                                         class="cart__item-image">
-                                    <div>
-                                        <h1>
-                                            <%= p.productId.title %>
-                                        </h1>
-                                        <h2>Quantity: <%= p.quantity %>
-                                        </h2>
+                                    <div class="cart__item-info">
+                                        <div class="cart__item-heading">
+                                            <h1>
+                                                <%= p.productId.title %>
+                                            </h1>
+                                            <h2>Quantity: <%= p.quantity %>
+                                            </h2>
+                                        </div>
+                                        <div class="cart__item-price">
+                                            <p>Price: <%= p.productId.price * p.quantity %> USD</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <form action="/cart-delete-item" method="POST">
-                                    <input type="hidden" value="<%= p.productId._id %>" name="productId">
-                                    <button class="btn danger" type="submit">Delete</button>
-                                </form>
-                            </li>
-                            <% }) %>
+                                    <form action="/cart-delete-item" method="POST">
+                                        <input type="hidden" value="<%= p.productId._id %>" name="productId">
+                                        <button class="btn danger" type="submit">Delete</button>
+                                    </form>
+                                </li>
+                                <% totalPrice +=p.productId.price * p.quantity; %>
+                                    <% }) %>
                     </ul>
+                    <div class="cart__total">
+                        <p>Total Price: <%= totalPrice %> USD</p>
+                    </div>
                     <hr>
                     <div class="centered">
                         <form action="/create-order" method="POST">

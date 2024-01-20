@@ -1,9 +1,7 @@
 .cart__item-list {
   list-style: none;
-  margin: 0;
-  padding: 0;
   margin: auto;
-  width: 60%; /* Adjust the width as needed */
+  width: 60%;
   max-width: 90%;
 }
 
@@ -26,12 +24,12 @@
 .cart__item h1,
 .cart__item h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #333;
 }
 
 .cart__item h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #777;
 }
 
@@ -40,7 +38,6 @@
 }
 
 .cart__item button {
-  /* background-color: rgb(239, 20, 38); */
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
@@ -57,9 +54,9 @@
   text-align: center;
 }
 
-/* Additional styles for the "Order Now" button */
 .centered form {
   display: inline-block;
+  margin-top: 1rem;
 }
 
 .centered button {
@@ -77,11 +74,48 @@
   background-color: #218838;
 }
 
-
 .cart__item-image {
-  width: 80px; /* Adjust the image width as needed */
-  height: 80px; /* Adjust the image height as needed */
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 8px;
   margin-right: 1rem;
+}
+
+.cart__item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__item-price {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+.cart__total {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #218838;
+  font-weight: bold;
+}
+
+.total-label {
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.centered button {
+  background-color: #218838;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.centered button:hover {
+  background-color: #1e7e34;
 }
