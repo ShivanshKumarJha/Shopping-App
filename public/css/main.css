@@ -57,7 +57,7 @@ form {
 
 .main-header__item {
   margin: 0 1rem;
-  padding: 0;
+  padding: 0rem;
 }
 
 .main-header__item a,
@@ -76,6 +76,17 @@ form {
 .main-header__item button:hover,
 .main-header__item button:active {
   color: #ffeb3b;
+}
+
+.main-header__logo a {
+  text-decoration: none;
+  font-size: 2.2rem;
+  color: white;
+}
+
+.main-header__logo a:hover {
+  color: #ffeb3b;
+  text-decoration: none;
 }
 
 .mobile-nav {
@@ -223,6 +234,11 @@ form {
 .btn.danger:active {
   background: red;
   color: white;
+}
+@media (max-width: 768px) {
+  .main-header__logo {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
