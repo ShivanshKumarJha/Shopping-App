@@ -1,23 +1,108 @@
 .form-control {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
-.form-control label,
-.form-control input,
-.form-control textarea {
+.form-control label {
   display: block;
-  width: 100%;
-  margin-bottom: 0.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
 
 .form-control input,
 .form-control textarea {
-  border: 1px solid #a1a1a1;
-  font: inherit;
-  border-radius: 2px;
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 .form-control input:focus,
 .form-control textarea:focus {
-  outline-color: #00695c;
+  outline: none;
+  border-color: #00695c;
+  box-shadow: 0 0 5px rgba(0, 105, 92, 0.5);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #00695c;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: #004d42;
+}
+
+.product-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.product-form {
+  width: 48%;
+  box-sizing: border-box;
+}
+
+.product-preview {
+  width: 45%;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.existing-product {
+  text-align: center;
+  max-width: 80%;
+  margin-top: 0rem; 
+  padding: 1rem; 
+}
+
+.existing-product h2{
+  font-size: 1.8rem;
+}
+
+.existing-product img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 1rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); 
+}
+
+.price {
+  color: #e44d26;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.product-description {
+  text-align: center; 
+  margin-top: 1.2rem; 
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.product-preview h2 {
+  margin: 0;
 }
