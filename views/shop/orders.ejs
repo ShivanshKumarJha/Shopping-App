@@ -14,8 +14,16 @@
                         <ul class="orders">
                             <% orders.forEach(order=> { %>
                                 <li class="orders__item">
-                                    <h1>Order - #<%= order._id.toString().slice(-8) %>
-                                    </h1>
+                                    <div class="order-header">
+                                        <h1>Order #<%= order._id.toString().slice(-8) %>
+                                        </h1>
+                                        <p class="order-date">
+                                            Ordered on <%= new Date(order.createdAt).toLocaleDateString() %>
+                                                <br>
+                                                at <%= new Date(order.createdAt).toLocaleTimeString([], {hour: '2-digit'
+                                                    , minute:'2-digit'}) %>
+                                        </p>
+                                    </div>
                                     <ul class="orders__products">
                                         <% order.products.forEach(p=> { %>
                                             <li class="orders__products-item">
