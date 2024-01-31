@@ -2,7 +2,9 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -35,9 +37,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-  .connect(
-    'mongodb+srv://shivansh:allIlDcTHXxUE3Ui@cluster0.8uiysnf.mongodb.net/shop?retryWrites=true&w=majority',
-  )
+  .connect(process.env.MONGODB_URI)
   .then(result => {
     // gives the first user find
     User.findOne().then(user => {
@@ -52,8 +52,10 @@ mongoose
         user.save();
       }
     });
-    app.listen(3000);
+    app.listen(port,()=>{
+      console.log(`Server is running on port ${port}`);
+    });
   })
   .catch(err => {
-    console.log(err);
+    console.log('Error ',err);
   });
