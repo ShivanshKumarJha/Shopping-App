@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
-require('dotenv').config();
+const env = require('dotenv').config();
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
