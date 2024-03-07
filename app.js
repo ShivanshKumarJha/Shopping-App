@@ -5,11 +5,17 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const env = require('dotenv').config();
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
 const app = express();
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URI,
+  collection: 'sessions',
+});
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -20,9 +26,18 @@ const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    secret: 'AfinfHrEB234U',
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  }),
+);
 
 app.use((req, res, next) => {
-  User.findById('659a989dcd1ac5abb4790746')
+  if (!req.session.user) return next();
+  User.findById(req.session.user._id)
     .then(user => {
       req.user = user;
       next();
@@ -52,10 +67,10 @@ mongoose
         user.save();
       }
     });
-    app.listen(port,()=>{
+    app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
   })
   .catch(err => {
-    console.log('Error ',err);
+    console.log('Error ', err);
   });
