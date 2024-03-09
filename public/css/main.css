@@ -80,8 +80,11 @@ form {
 
 .main-header__logo a {
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-header__logo a:hover {
@@ -235,6 +238,23 @@ form {
   background: red;
   color: white;
 }
+
+.user-message {
+  margin: auto;
+  width: 90%;
+  border: 1px solid #4771fa;
+  padding: 0.5rem;
+  border-radius: 3px;
+  background: #b9c9ff;
+  text-align: center;
+}
+
+.user-message--error {
+  border-color: red;
+  background-color: rgb(255, 176, 176);
+  color: red;
+}
+
 @media (max-width: 768px) {
   .main-header__logo {
     display: none;
@@ -248,5 +268,9 @@ form {
 
   #side-menu-toggle {
     display: none;
+  }
+
+  .user-message {
+    width: 25rem;
   }
 }

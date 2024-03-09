@@ -1,5 +1,6 @@
 <div class="backdrop"></div>
 <header class="main-header">
+    <h1 class="main-header__logo"><a href="/">Shopify</a></h1>
     <button id="side-menu-toggle">Menu</button>
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
@@ -38,6 +39,7 @@
                 <% } else { %>
                     <li class="main-header__item">
                         <form action="/logout" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <button type="submit">Logout</button>
                         </form>
                     </li>
@@ -80,6 +82,8 @@
                     <% } else { %>
                         <li class="mobile-nav__item">
                             <form action="/logout" method="post">
+                                <!-- Passing the csrf token from controller to the views and csrf will look for it -->
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <button type="submit">Logout</button>
                             </form>
                         </li>

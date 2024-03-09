@@ -119,3 +119,14 @@ body {
   font-size: 0.8rem;
   color: #777;
 }
+
+.empty-orders {
+  text-align: center;
+}
+
+.empty-orders h1 {
+  font-size: 2rem;
+  color: #030303;
+  margin-bottom: 1rem;
+  text-align: center;
+}

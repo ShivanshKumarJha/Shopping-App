@@ -8,8 +8,9 @@
                 <% if (orders.length <=0) { %>
                     <div class="empty-orders">
                         <h1>No orders yet!</h1>
-                        <img src="/images/empty-orders.png" alt="Empty Orders">
+                        <a href="/" class="btn" style="padding: 0.5rem;">Order Now</a>
                     </div>
+
                     <% } else { %>
                         <ul class="orders">
                             <% orders.forEach(order=> { %>
