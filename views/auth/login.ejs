@@ -16,18 +16,23 @@
     <% } %>
     <form class="login-form"
           action="/login"
-          method="POST">
+          method="POST"
+          novalidate>
         <div class="form-control">
             <label for="email">E-Mail</label>
-            <input type="email"
+            <input class='<%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>'
+                   type="email"
                    name="email"
-                   id="email">
+                   id="email"
+                   value='<%= oldInput.email %>'>
         </div>
         <div class="form-control">
             <label for="password">Password</label>
-            <input type="password"
+            <input class='<%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>'
+                   type="password"
                    name="password"
-                   id="password">
+                   id="password"
+                   value='<%= oldInput.password %>'>
         </div>
         <input type="hidden"
                name="_csrf"

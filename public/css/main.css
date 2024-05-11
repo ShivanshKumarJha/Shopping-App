@@ -43,7 +43,7 @@ form {
 .main-header__nav {
   height: 100%;
   width: 100%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
 }
@@ -57,7 +57,7 @@ form {
 
 .main-header__item {
   margin: 0 1rem;
-  padding: 0rem;
+  padding: 0;
 }
 
 .main-header__item a,
@@ -123,16 +123,23 @@ form {
   padding: 0;
 }
 
-.mobile-nav__item a {
+.mobile-nav__item a,
+.mobile-nav__item button {
+  font: inherit;
   text-decoration: none;
   color: black;
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .mobile-nav__item a:active,
 .mobile-nav__item a:hover,
-.mobile-nav__item a.active {
+.mobile-nav__item a.active,
+.mobile-nav__item button:hover,
+.mobile-nav__item button:active {
   background: #00695c;
   color: white;
   border-radius: 3px;
@@ -251,14 +258,8 @@ form {
 
 .user-message--error {
   border-color: red;
-  background-color: rgb(255, 176, 176);
+  background: rgb(255, 176, 176);
   color: red;
-}
-
-@media (max-width: 768px) {
-  .main-header__logo {
-    display: none;
-  }
 }
 
 @media (min-width: 768px) {
@@ -271,6 +272,10 @@ form {
   }
 
   .user-message {
-    width: 25rem;
+    width: 30rem;
+  }
+
+  .main-header__logo a {
+    display: none;
   }
 }

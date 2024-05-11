@@ -15,12 +15,13 @@ body {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px; /* Adjust as needed */
+  margin-top: 20px;
 }
 
 .image {
   flex: 1;
   overflow: hidden;
+  height: fit-content;
 }
 
 .image img {
@@ -48,6 +49,7 @@ body {
   margin-bottom: 1rem;
   display: flex;
   align-items: baseline;
+  padding: 0.5rem;
 }
 
 .product__price span {
@@ -77,4 +79,18 @@ body {
 .btn:hover {
   background-color: #008080;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .product-details {
+    padding: 0;
+  }
 }

@@ -1,7 +1,8 @@
 .cart__item-list {
   list-style: none;
   margin: auto;
-  width: 60%;
+  padding: 0;
+  width: 100%;
   max-width: 90%;
 }
 
@@ -118,4 +119,36 @@
 
 .centered button:hover {
   background-color: #1e7e34;
+}
+
+@media (max-width: 768px) {
+  .cart__item-list {
+    width: 100%;
+  }
+
+  .cart__item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
+  }
+
+  .cart__item img {
+    margin-bottom: 0.2rem;
+  }
+
+  .cart__item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cart__item-price {
+    margin: 0;
+  }
+
+  .cart__item form .btn {
+    position: relative;
+    right: 100%;
+  }
 }
