@@ -76,8 +76,10 @@ exports.postLogin = async (req, res, next) => {
       validationErrors: [{ path: 'password' }],
     });
   } catch (err) {
-    console.log(err);
-    res.redirect('/login');
+    // This will directly call the middleware of the error
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
@@ -112,7 +114,10 @@ exports.postSignup = async (req, res, next) => {
     userMailer.signupSuccess(user);
     res.redirect('/login');
   } catch (err) {
-    console.log(err);
+    // This will directly call the middleware of the error
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
   }
 };
 
@@ -162,7 +167,12 @@ exports.postReset = (req, res, next) => {
         );
         return res.redirect('/');
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        // This will directly call the middleware of the error
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+      });
   });
 };
 
@@ -184,7 +194,12 @@ exports.getNewPassword = (req, res, next) => {
         passwordToken: token,
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      // This will directly call the middleware of the error
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
 
 exports.postNewPassword = (req, res, next) => {
@@ -211,5 +226,10 @@ exports.postNewPassword = (req, res, next) => {
     .then(result => {
       res.redirect('/login');
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      // This will directly call the middleware of the error
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
 };
