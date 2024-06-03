@@ -1,8 +1,10 @@
 const fs = require('fs');
 const path = require('path');
+const PDFDocument = require('pdfkit');
 
 const Product = require('../models/product');
 const Order = require('../models/order');
+const generateInvoice = require('../config/generateInvoice');
 
 exports.getProducts = (req, res, next) => {
   Product.find()
@@ -166,29 +168,11 @@ exports.getInvoice = (req, res, next) => {
         error.statusCode = 403;
         return next(error);
       }
-      const invoiceName = 'invoice-' + orderId + '.pdf';
+
+      const invoiceName = `invoice-${orderId}.pdf`;
       const invoicePath = path.join('data', 'invoices', invoiceName);
 
-      /*
-       fs.readFile(invoicePath, (err, data) => {
-       if (err) return next(err);
-       res.setHeader(
-       'Content-Disposition',
-       'inline; filename="' + invoiceName + '"',
-       );
-       res.setHeader('Content-Type', 'application/pdf');
-       res.send(data);
-       });
-       */
-
-      // Read in stream for the bigger file
-      const file = fs.createReadStream(invoicePath);
-      res.setHeader(
-        'Content-Disposition',
-        'inline; filename="' + invoiceName + '"',
-      );
-      res.setHeader('Content-Type', 'application/pdf');
-      file.pipe(res);
+      generateInvoice(order, invoicePath, res);
     })
     .catch(err => next(err));
 };
