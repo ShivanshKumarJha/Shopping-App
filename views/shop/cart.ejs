@@ -41,6 +41,7 @@
                     <div class="centered">
                         <form action="/create-order" method="POST">
                             <input type="hidden" name="_csrf" value="<%= csrfToken; %>">
+                            <input type="hidden" name="totalPrice" value="<%= totalPrice.toFixed(2); %>">
                             <button type="submit" class="btn">Order Now!
                             </button>
                         </form>

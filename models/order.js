@@ -25,6 +25,10 @@ const orderSchema = new Schema(
         ref: 'User',
       },
     },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true },
 );

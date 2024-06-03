@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 
@@ -100,6 +103,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.postOrder = (req, res, next) => {
+  const totalPrice = req.body.totalPrice;
   req.user
     .populate('cart.items.productId')
     .then(user => {
@@ -113,6 +117,7 @@ exports.postOrder = (req, res, next) => {
           userId: req.user,
         },
         products: products,
+        totalPrice: totalPrice,
       });
       return order.save();
     })
@@ -145,4 +150,45 @@ exports.getOrders = (req, res, next) => {
       error.httpStatusCode = 500;
       return next(error);
     });
+};
+
+exports.getInvoice = (req, res, next) => {
+  const orderId = req.params.orderId;
+  Order.findById(orderId)
+    .then(order => {
+      if (!order) {
+        const error = new Error('No order found.');
+        error.statusCode = 404;
+        return next(error);
+      }
+      if (order.user.userId.toString() !== req.user._id.toString()) {
+        const error = new Error('Unauthorized');
+        error.statusCode = 403;
+        return next(error);
+      }
+      const invoiceName = 'invoice-' + orderId + '.pdf';
+      const invoicePath = path.join('data', 'invoices', invoiceName);
+
+      /*
+       fs.readFile(invoicePath, (err, data) => {
+       if (err) return next(err);
+       res.setHeader(
+       'Content-Disposition',
+       'inline; filename="' + invoiceName + '"',
+       );
+       res.setHeader('Content-Type', 'application/pdf');
+       res.send(data);
+       });
+       */
+
+      // Read in stream for the bigger file
+      const file = fs.createReadStream(invoicePath);
+      res.setHeader(
+        'Content-Disposition',
+        'inline; filename="' + invoiceName + '"',
+      );
+      res.setHeader('Content-Type', 'application/pdf');
+      file.pipe(res);
+    })
+    .catch(err => next(err));
 };

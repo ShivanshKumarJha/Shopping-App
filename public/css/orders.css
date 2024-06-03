@@ -1,5 +1,5 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'arial', sans-serif;
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
@@ -34,7 +34,7 @@ body {
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 100%;
   transition: box-shadow 0.3s ease-in-out;
 }
@@ -59,7 +59,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  /* padding: 1rem; */
   color: #00695c;
   border-radius: 8px;
   margin-bottom: 0.5rem;
@@ -74,7 +74,7 @@ body {
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 4px;
   margin-right: 1rem;
 }
 
@@ -83,13 +83,13 @@ body {
 }
 
 .text-info h2 {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #333;
   margin: 0 0 0.2rem;
 }
 
 .text-info p {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   margin: 0;
   color: #777;
 }
@@ -107,13 +107,13 @@ body {
 }
 
 .order-header h1 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: #333;
   margin: 0 0 0.5rem;
 }
 
 .order-date {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #777;
 }
 
