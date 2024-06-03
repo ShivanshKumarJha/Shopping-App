@@ -1,29 +1,29 @@
 <%- include('../includes/head.ejs') %>
-<link rel="stylesheet"
-      href="/css/product-detail.css">
-</head>
+    <link rel="stylesheet" href="/css/product-detail.css">
+    </head>
 
-<body>
-<%- include('../includes/navigation.ejs') %>
-<main class="product-container">
-    <div class="image">
-        <img src="<%= product.imageUrl; %>"
-             alt="<%= product.title; %>">
-    </div>
-    <div class="product-details">
-        <h1 class="product__title">
-            <%= product.title; %>
-        </h1>
-        <p class="product__description">
-            <%= product.description; %>
-        </p>
-        <div class="price-and-cart">
-            <h2 class="product__price">Rs <span class="price-number"><%= product.price; %></span></h2>
-            <div class="product-form">
-                <%- include('../includes/add-to-cart.ejs') %>
-            </div>
-        </div>
-    </div>
-</main>
-<%- include('../includes/end.ejs') %>
-</body>
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="product-container">
+                <div class="image">
+                    <img src="/<%= product.imageUrl; %>" alt="<%= product.title; %>">
+                </div>
+                <div class="product-details">
+                    <h1 class="product__title">
+                        <%= product.title; %>
+                    </h1>
+                    <p class="product__description">
+                        <%= product.description; %>
+                    </p>
+                    <div class="price-and-cart">
+                        <h2 class="product__price">Rs <span class="price-number">
+                                <%= product.price; %>
+                            </span></h2>
+                        <div class="product-form">
+                            <%- include('../includes/add-to-cart.ejs') %>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <%- include('../includes/end.ejs') %>
+    </body>
