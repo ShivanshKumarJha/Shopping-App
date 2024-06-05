@@ -1,6 +1,65 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet"
-      href="/css/product.css" />
+      href="/css/checkout.css">
 </head>
+
 <body>
 <%- include('../includes/navigation.ejs') %>
+
+<header>
+    <h3>Checkout</h3>
+</header>
+
+<main>
+    <section class="checkout-details">
+        <div class="checkout-details-inner">
+            <div class="checkout-lists">
+                <% products.forEach(p => { %>
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="<%= p.productId.imageUrl %>"
+                                 alt="<%= p.productId.title %>">
+                        </div>
+                        <div class="card-details">
+                            <div class="card-name"><%= p.productId.title %></div>
+                            <div class="card-price">
+                                $<%= (p.productId.price).toFixed(2) %>
+                            </div>
+                            <div class='card-wheel'>
+                                Quantity :<%= p.quantity %>
+                            </div>
+
+                            <!-- TODO Will add this feature later -->
+                            <!-- <div class="card-wheel">
+                                <button>-</button>
+                                <span><%= p.quantity %></span>
+                                <button>+</button>
+                            </div> -->
+
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="checkout-total">
+                <h6>Total:</h6>
+                <p>$<%= totalPrice.toFixed(2) %></p>
+            </div>
+            <button id="order-btn"
+                    class="btn"
+                    style='font-size: 1.2rem'>Order Now
+            </button>
+        </div>
+    </section>
+</main>
+
+<%- include('../includes/end.ejs') %>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe('pk_test_51POJZ3P5xHt2ekolWIzoDeA9ITvYSXkTwdpNTT3pjHfClqFBPgHMmClyg1FV7Jxge41LxbT03a5ZNNQey5X4olRT00aqtqSZRm');
+  const orderBtn = document.getElementById('order-btn');
+  orderBtn.addEventListener('click', function() {
+    stripe.redirectToCheckout({ sessionId: '<%= sessionId %>' });
+  });
+</script>
+</body>

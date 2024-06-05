@@ -1,56 +1,174 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/cart.css">
-    </head>
+<link rel="stylesheet"
+      href="/css/cart.css">
+<link rel='stylesheet'
+      href='/css/checkout.css'>
+</head>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-            <main>
-                <% if (products.length> 0) { %>
-                    <ul class="cart__item-list">
-                        <% let totalPrice=0; %>
-                            <% products.forEach(p=> { %>
-                                <li class="cart__item">
-                                    <img src="/<%= p.productId.imageUrl; %>" alt="<%= p.productId.title; %>"
-                                        class="cart__item-image">
-                                    <div class="cart__item-info">
-                                        <div class="cart__item-heading">
-                                            <h1>
-                                                <%= p.productId.title; %>
-                                            </h1>
-                                            <h2>Quantity: <%= p.quantity; %>
-                                            </h2>
-                                        </div>
-                                        <div class="cart__item-price">
-                                            <p>Price: <%= (p.productId.price * p.quantity).toFixed(2); %> Rs.</p>
-                                        </div>
-                                    </div>
-                                    <form action="/cart-delete-item" method="POST">
-                                        <input type="hidden" value="<%= p.productId._id; %>" name="productId">
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken; %>">
-                                        <button class="btn danger" type="submit">Delete
-                                        </button>
-                                    </form>
-                                </li>
-                                <% totalPrice +=p.productId.price * p.quantity; %>
-                                    <% }); %>
-                    </ul>
-                    <div class="cart__total">
-                        <p>Total Price: <%= totalPrice.toFixed(2); %> Rupees</p>
+<body>
+<%- include('../includes/navigation.ejs') %>
+<main>
+    <% if (products.length > 0) { %>
+        <section class="checkout-form">
+            <form id="checkout-form"
+                  action='/checkout'
+                  method='GET'>
+                <h6>Contact information</h6>
+                <div class="form-control">
+                    <label for="checkout-email">E-mail</label>
+                    <div>
+                        <span class="fa fa-envelope"></span>
+                        <input type="email"
+                               id="checkout-email"
+                               name="email"
+                               placeholder="Enter your email..."
+                               required>
                     </div>
-                    <hr>
-                    <div class="centered">
-                        <form action="/create-order" method="POST">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken; %>">
-                            <input type="hidden" name="totalPrice" value="<%= totalPrice.toFixed(2); %>">
-                            <button type="submit" class="btn">Order Now!
-                            </button>
-                        </form>
+                </div>
+                <div class="form-control">
+                    <label for="checkout-phone">Phone</label>
+                    <div>
+                        <span class="fa fa-phone"></span>
+                        <input type="tel"
+                               id="checkout-phone"
+                               name="phone"
+                               placeholder="Enter your phone..."
+                               required>
                     </div>
-                    <% } else { %>
-                        <h1>No Products in Cart!</h1>
-                        <% } %>
-            </main>
-            <%- include('../includes/end.ejs') %>
-    </body>
+                </div>
+                <br>
+                <h6>Shipping address</h6>
+                <div class="form-control">
+                    <label for="checkout-name">Full name</label>
+                    <div>
+                        <span class="fa fa-user-circle"></span>
+                        <input type="text"
+                               id="checkout-name"
+                               name="name"
+                               placeholder="Enter your name..."
+                               required>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label for="checkout-address">Address</label>
+                    <div>
+                        <span class="fa fa-home"></span>
+                        <input type="text"
+                               id="checkout-address"
+                               name="address"
+                               placeholder="Your address..."
+                               required>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <label for="checkout-city">City</label>
+                    <div>
+                        <span class="fa fa-building"></span>
+                        <input type="text"
+                               id="checkout-city"
+                               name="city"
+                               placeholder="Your city..."
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="checkout-country">Country</label>
+                        <div>
+                            <span class="fa fa-globe"></span>
+                            <input type="text"
+                                   id="checkout-country"
+                                   name="country"
+                                   placeholder="Your country..."
+                                   list="country-list"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="checkout-state">State</label>
+                        <div>
+                            <span class="fa fa-city"></span>
+                            <input type="text"
+                                   id="checkout-state"
+                                   name="state"
+                                   placeholder="Your state..."
+                                   list="state-list"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="form-control">
+                        <label for="checkout-postal">Postal code</label>
+                        <div>
+                            <span class="fa fa-archive"></span>
+                            <input type="text"
+                                   id="checkout-postal"
+                                   name="postalCode"
+                                   placeholder="Your postal code..."
+                                   required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control checkbox-control">
+                    <input type="checkbox"
+                           id="checkout-checkbox"
+                           name="checkout-checkbox">
+                    <label for="checkout-checkbox">Save this information for next time</label>
+                </div>
+                <div class="form-control-btn">
+                    <input type="hidden"
+                           name="_csrf"
+                           value="<%= csrfToken; %>">
+                    <button id="order-btn"
+                            class="btn">Continue
+                    </button>
+                </div>
+            </form>
+        </section>
+        <ul class="cart__item-list">
+            <% let totalPrice = 0; %>
+            <% products.forEach(p=> { %>
+                <li class="cart__item">
+                    <img src="/<%= p.productId.imageUrl; %>"
+                         alt="<%= p.productId.title; %>"
+                         class="cart__item-image">
+                    <div class="cart__item-info">
+                        <div class="cart__item-heading">
+                            <h1>
+                                <%= p.productId.title; %>
+                            </h1>
+                            <h2>Quantity: <%= p.quantity; %>
+                            </h2>
+                        </div>
+                        <div class="cart__item-price">
+                            <p>Price: $<%= (p.productId.price * p.quantity).toFixed(2); %></p>
+                        </div>
+                    </div>
+                    <form action="/cart-delete-item"
+                          method="POST">
+                        <input type="hidden"
+                               value="<%= p.productId._id; %>"
+                               name="productId">
+                        <input type="hidden"
+                               name="_csrf"
+                               value="<%= csrfToken; %>">
+                        <button class="btn danger"
+                                type="submit">Delete
+                        </button>
+                    </form>
+                </li>
+                <% totalPrice += p.productId.price * p.quantity; %>
+            <% }); %>
+            <div class="cart__total">
+                <p>Total Price: $<%= totalPrice.toFixed(2); %></p>
+            </div>
+        </ul>
+    <% } else { %>
+        <h1>No Products in Cart!</h1>
+    <% } %>
+</main>
+<%- include('../includes/end.ejs') %>
+</body>
+<script>
 
-    </html>
+
+</script>

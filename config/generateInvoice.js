@@ -40,17 +40,16 @@ const generateInvoice = (order, invoicePath, res) => {
   let yPosition = 150;
 
   // Billing and Shipping Information
-  pdfDoc.font('Helvetica-Bold').fontSize(10).text('BILL TO:', 50, yPosition);
+  pdfDoc.font('Helvetica-Bold').fontSize(10).text('SHIP TO:', 50, yPosition);
   pdfDoc.font('Helvetica').fontSize(10);
-  pdfDoc.text(order.user.name || 'Customer Name', 50, yPosition + 15);
-  pdfDoc.text('Customer Address', 50, yPosition + 30);
-  pdfDoc.text('Customer City', 50, yPosition + 45);
-
-  pdfDoc.font('Helvetica-Bold').fontSize(10).text('SHIP TO:', 250, yPosition);
-  pdfDoc.font('Helvetica').fontSize(10);
-  pdfDoc.text(order.user.name || 'Customer Name', 250, yPosition + 15);
-  pdfDoc.text('Customer Address', 250, yPosition + 30);
-  pdfDoc.text('Customer City', 250, yPosition + 45);
+  pdfDoc.text(order.user.name, 50, yPosition + 15);
+  pdfDoc.text(order.address + ',' + order.city, 50, yPosition + 30);
+  pdfDoc.text(
+    order.state + '-' + order.postalCode + ',' + order.country,
+    50,
+    yPosition + 45,
+  );
+  pdfDoc.text(order.phone, 50, yPosition + 60);
 
   // Invoice Details
   pdfDoc.font('Helvetica-Bold').fontSize(10).text(`INVOICE #:`, 460, yPosition);
@@ -67,7 +66,7 @@ const generateInvoice = (order, invoicePath, res) => {
     .text(`${new Date().toLocaleDateString()}`, 460, yPosition + 50);
 
   // Increase yPosition for the next section
-  yPosition += 100;
+  yPosition += 120;
 
   // Table headers
   pdfDoc.moveDown().moveDown();
@@ -83,9 +82,9 @@ const generateInvoice = (order, invoicePath, res) => {
   order.products.forEach(prod => {
     pdfDoc.text(prod.quantity, 50, yPosition);
     pdfDoc.text(prod.product.title, 150, yPosition);
-    pdfDoc.text(`Rs. ${prod.product.price.toFixed(2)}`, 350, yPosition);
+    pdfDoc.text(`$${prod.product.price.toFixed(2)}`, 350, yPosition);
     pdfDoc.text(
-      `Rs. ${(prod.product.price * prod.quantity).toFixed(2)}`,
+      `$${(prod.product.price * prod.quantity).toFixed(2)}`,
       450,
       yPosition,
       { align: 'right' },
@@ -96,7 +95,7 @@ const generateInvoice = (order, invoicePath, res) => {
   // Subtotal
   yPosition += 20;
   pdfDoc.font('Helvetica-Bold').fontSize(10).text('Subtotal:', 350, yPosition);
-  pdfDoc.text(`Rs. ${order.totalPrice.toFixed(2)}`, 450, yPosition, {
+  pdfDoc.text(`$${order.totalPrice.toFixed(2)}`, 450, yPosition, {
     align: 'right',
   });
   yPosition += 20;
@@ -106,15 +105,10 @@ const generateInvoice = (order, invoicePath, res) => {
   pdfDoc
     .font('Helvetica-Bold')
     .fontSize(20)
-    .text(
-      `Invoice Total: Rs. ${Number(order.totalPrice.toFixed(2))}`,
-      50,
-      yPosition,
-      {
-        width: 500,
-        align: 'center',
-      },
-    );
+    .text(`Invoice Total: $${order.totalPrice.toFixed(2)}`, 50, yPosition, {
+      width: 500,
+      align: 'center',
+    });
 
   // Draw upper border
   pdfDoc
@@ -141,9 +135,9 @@ const generateInvoice = (order, invoicePath, res) => {
   pdfDoc
     .font('Helvetica-Bold')
     .fontSize(10)
-    .text('TERMS & CONDITIONS', 50, yPosition, { underline: true });
+    .text('NOTE', 50, yPosition, { underline: true });
   pdfDoc.font('Helvetica').fontSize(10);
-  pdfDoc.text('Payment is due within 15 days', 50, yPosition + 15);
+  pdfDoc.text('Payment is done with stripe gateway.', 50, yPosition + 15);
 
   pdfDoc.end();
 };

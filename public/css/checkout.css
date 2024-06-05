@@ -1,0 +1,246 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #4e5150;
+}
+
+header {
+  padding: 1rem;
+  text-align: center;
+}
+
+header > h3 {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.checkout-form {
+  width: 100%;
+}
+
+.checkout-form form h6 {
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.checkout-form form .form-control {
+  margin: 10px 0;
+  position: relative;
+}
+
+.checkout-form form .form-control label:not([for='checkout-checkbox']) {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.checkout-form form .form-control input:not([type='checkbox']) {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  border-radius: 10px;
+  outline: none;
+  border: 0.2px solid #4e5150;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.checkout-form form .form-control input:not([type='checkbox'])::placeholder {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.checkout-form form .form-control label[for='checkout-checkbox'] {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 10px;
+}
+
+.checkout-form form .form-control > div {
+  position: relative;
+}
+
+.checkout-form form .form-control > div span.fa {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(15px, -50%);
+}
+
+.checkout-form form .form-group {
+  display: flex;
+  column-gap: 25px;
+}
+
+.checkout-form form .checkbox-control {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.checkout-form form .form-control-btn {
+  margin: 20px 0;
+}
+
+.checkout-form form .form-control-btn button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background-color: #ff5a5f;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkout-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-details .checkout-details-inner {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.checkout-details .checkout-lists {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.checkout-details .checkout-lists .card {
+  display: flex;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-details .checkout-lists .card .card-image img {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.checkout-details .checkout-lists .card .card-details {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.checkout-details .checkout-lists .card .card-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.checkout-details .checkout-lists .card .card-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ff5a5f;
+}
+
+.checkout-details .checkout-lists .card .card-price span {
+  font-size: 10px;
+  font-weight: 500;
+  color: #a9a9a9;
+  text-decoration: line-through;
+}
+
+.checkout-details .checkout-lists .card .card-wheel {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.checkout-details .checkout-lists .card .card-wheel button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checkout-details .checkout-shipping,
+.checkout-details .checkout-total {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.checkout-details .checkout-shipping h6,
+.checkout-details .checkout-total h6 {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.checkout-details .checkout-shipping p,
+.checkout-details .checkout-total p {
+  font-size: 25px;
+  font-weight: 700;
+  color: #ff5a5f;
+}
+
+@media (max-width: 768px) {
+  main {
+    display: block;
+  }
+
+  .checkout-form {
+    width: 100%;
+  }
+
+  .checkout-details .checkout-details-inner {
+    padding: 10px;
+  }
+
+  .checkout-details .checkout-lists {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 768px) {
+  main {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .checkout-form {
+    width: 45%;
+  }
+
+  .checkout-details {
+    width: 100%;
+  }
+
+  .checkout-details .checkout-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}

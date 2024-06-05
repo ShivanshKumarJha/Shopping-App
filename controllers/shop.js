@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const PDFDocument = require('pdfkit');
+const STRIPE_PRIVATE_KEY = process.env.PRIVATE_KEY;
+const stripe = require('stripe')(STRIPE_PRIVATE_KEY);
 
 const Product = require('../models/product');
 const Order = require('../models/order');
@@ -121,7 +123,7 @@ exports.postCart = (req, res, next) => {
     })
     .then(result => {
       // console.log(result);
-      res.redirect('/cart');
+      res.redirect('back');
     });
 };
 
@@ -138,6 +140,116 @@ exports.postCartDeleteProduct = (req, res, next) => {
       error.httpStatusCode = 500;
       return next(error);
     });
+};
+
+exports.getCheckout = (req, res, next) => {
+  let products;
+  let total = 0;
+  req.user
+    .populate('cart.items.productId')
+    .then(user => {
+      products = user.cart.items;
+      products.forEach(p => {
+        total += p.quantity * p.productId.price;
+      });
+      return stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: products.map(p => {
+          return {
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: p.productId.title,
+                description: p.productId.description,
+              },
+              unit_amount: p.productId.price * 100,
+            },
+            quantity: p.quantity,
+          };
+        }),
+        mode: 'payment',
+        metadata: {
+          totalPrice: total,
+          name: req.query.name,
+          email: req.query.email,
+          phone: req.query.phone,
+          address: req.query.address,
+          city: req.query.city,
+          country: req.query.country,
+          postalCode: req.query.postalCode,
+          state: req.query.state,
+        },
+        success_url: `${req.protocol}://${req.get(
+          'host',
+        )}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.protocol}://${req.get('host')}/checkout/cancel`,
+      });
+    })
+    .then(session => {
+      res.render('shop/checkout', {
+        path: '/checkout',
+        pageTitle: 'Checkout',
+        products: products,
+        totalPrice: total,
+        sessionId: session.id,
+      });
+    })
+    .catch(err => {
+      // This will directly call the middleware of the error
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
+
+exports.getCheckoutSuccess = async (req, res, next) => {
+  try {
+    const sessionId = req.query.session_id;
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    const {
+      totalPrice,
+      name,
+      email,
+      phone,
+      address,
+      city,
+      country,
+      postalCode,
+      state,
+    } = session.metadata;
+
+    const user = await req.user.populate('cart.items.productId');
+
+    const products = user.cart.items.map(i => {
+      return { quantity: i.quantity, product: { ...i.productId._doc } };
+    });
+
+    const order = new Order({
+      user: {
+        name: name,
+        email: email,
+        userId: req.user,
+      },
+      products: products,
+      totalPrice: totalPrice,
+      address: address,
+      city: city,
+      country: country,
+      postalCode: postalCode,
+      phone: phone,
+      state: state,
+    });
+
+    await order.save();
+    await req.user.clearCart();
+
+    res.redirect('/orders');
+  } catch (err) {
+    const error = new Error(err);
+    error.httpStatusCode = 500;
+    return next(error);
+  }
 };
 
 exports.postOrder = (req, res, next) => {
