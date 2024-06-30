@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 const env = require('dotenv').config();
 const session = require('express-session');
@@ -70,6 +70,9 @@ app.use(
     secret: 'AfinfHrEB234U',
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 100,
+    },
     store: store,
   }),
 );
